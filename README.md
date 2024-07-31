@@ -25,7 +25,6 @@ The dataset used is the AI4I 2020 Predictive Maintenance Dataset, available from
    - Load the dataset and handle missing values.
    - Encode categorical features.
    - Scale numerical features.
-   - Bin the `Tool wear [min]` into categories for classification.
 
 2. **Splitting the Dataset**
    - Split the data into training and testing sets.
@@ -61,3 +60,39 @@ pip install pandas scikit-learn imbalanced-learn matplotlib seaborn
 
 ### Results
 After applying SMOTE and training a Random Forest classifier, the model achieved improved precision, recall, and F1-scores, especially for the minority class. The confusion matrix provided a clear view of the model's performance in correctly predicting each class.
+
+Best Parameters for Random Forest:
+
+```python
+{
+    'criterion': 'entropy',
+    'max_depth': None,
+    'max_features': 'sqrt',
+    'n_estimators': 200
+}
+```
+
+Accuracy Report for Best Random Forest Model: 0.95
+
+Classification Report for Best Random Forest Model:
+```text
+              precision    recall  f1-score   support
+
+           0       0.99      0.96      0.97      1939
+           1       0.35      0.74      0.47        61
+
+    accuracy                           0.95      2000
+   macro avg       0.67      0.85      0.72      2000
+weighted avg       0.97      0.95      0.96      2000
+```
+
+Confusion Matrix for Best Random Forest Model:
+```text
+[[1855   84]
+ [  16   45]]
+```
+Insights:
+
+- The model has high accuracy (95%), but precision for detecting failures (class 1) is lower (35%), indicating a significant number of false positives.
+- The recall for failures is relatively high (74%), suggesting the model is good at detecting actual failures.
+- The confusion matrix shows the model's performance in correctly predicting each class, with more accurate predictions for non-failures (class 0).
